@@ -17,7 +17,7 @@
 
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 800;
-const double DEFAULT_VALUE = 111.111;
+const double DEFAULT_VALUE = 0;
 
 const int NUM_T_STEPS = 100000;
 const double LEFT_X_BOUND = 0;
@@ -39,7 +39,7 @@ double u_0(int x, int t=0){
 // computes numerical solution recursively
 double u(int x, int t, double** output_map){
     if (x <= 0){ output_map[2][x] = 0; return 0; } // boundary conditions
-    if (x > SCREEN_WIDTH){ 
+    if (x >= SCREEN_WIDTH){ 
         double output = 2*output_map[1][x] - output_map[0][x] + 2*C*C*( - output_map[1][x] + output_map[1][x-1] );
         output_map[2][x] = output;
         return output;
@@ -107,24 +107,3 @@ int main(){
         delete[] output_map[i]; 
     }
 }
-
-
-
-// double gradient(int x, int t);
-// double gradient(int x, int t){
-//     u(x, t - DELTA_T);
-// }
-
-// double del_xx(int x, int t);
-// double del_xx(int x, int t){
-//     double output = u(x+DELTA_X, t-DELTA_T) - 2*u(x, t-DELTA_T) + u(x-DELTA_X, t-DELTA_T);
-//     output /= DELTA_X*DELTA_X;
-//     return output;
-// }
-
-// double del_tt(int x, int t);
-// double del_tt(int x, int t){
-//     double output = u(x, t+DELTA_T) - 2*u(x, t) + u(x, t-DELTA_T);
-//     output /= DELTA_T*DELTA_T;
-//     return output;
-// }
